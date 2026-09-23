@@ -1,0 +1,42 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "directcash",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-15",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*",
+      "/webhook",
+      "/oauth/*"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "directcash-db",
+      "database_id": "8e76e599-692c-4d1b-ba09-de7134f9a12b",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
+  "vars": {
+    "GRAPH_VERSION": "v25.0",
+    "LICENSE_SERVER_URL": "https://livecash-license-server.suporterhaianebarreto.workers.dev",
+    "LICENSE_ENFORCEMENT": "enabled"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1
+  }
+}
